@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Technology - Lab 1 Calculator</title>
+</head>
+<style>
+    body{
+     font-family: Arial, Helvetica, sans-serif;
+    }
+    .container {
+     width: 450px; 
+     margin: 20px auto;
+     background-color: gainsboro;
+     padding: 5px;
+    }
+    .butt {
+     float: left;
+     text-align: center;
+     width: 85px;
+     margin: 2px;
+     background-color: white;
+     padding: 5px 0;
+     height: 25px;
+     cursor: pointer;
+    }
+    .butt:hover {
+     background-color: rgb(5, 5, 141);
+     color: white;
+    }
+    .result{
+     text-align: center;
+     margin: 5px;
+     width: 85px;
+     background-color: white;
+     padding: 5px 0;
+     border-radius: 4px;
+     cursor: pointer;
+    }
+    .result:hover {
+     background-color: rgb(5, 5, 141);
+     color: white;
+    }
+    .monitor{
+     background-color: gainsboro;
+     margin: 0px;
+     height: 45px;
+     padding: 5px;
+     font-size: 30px;
+     color: black;
+     
+    }
+   </style>
+  </head>
+  <body>
+   <div style="text-align: center; font-size: 24px; color: blue;">Calculator</div>
+   <div class="container">
+    <div class = "monitor">0</div>
+    <div class="butt">MC</div>
+    <div class="butt">MR</div>
+    <div class="butt">M+</div>
+    <div class="butt">M-</div>
+    <div class="butt">MS</div>
+    <div class="butt">2</div>
+    <div class="butt">9</div>
+    <div class="butt">e</div>
+    <div class="butt">C</div>
+    <div class="butt">ac</div>
+    <div class="butt">x</div>
+    <div class="butt">1/x</div>
+    <div class="butt">|x|</div>
+    <div class="butt">exp</div>
+    <div class="butt">mod</div>
+    <div class="butt">+</div>
+    <div class="butt">(</div>
+    <div class="butt">)</div>
+    <div class="butt">n!</div>
+    <div class="butt">&divide;</div>
+    <div class="butt">x</div>
+    <div class="butt">7</div>
+    <div class="butt">8</div>
+    <div class="butt">9</div>
+    <div class="butt">X</div>
+    <div class="butt">10</div>
+    <div class="butt">4</div>
+    <div class="butt">5</div>
+    <div class="butt">6</div>
+    <div class="butt">-</div>
+    <div class="butt">log</div>
+    <div class="butt">1</div>
+    <div class="butt">2</div>
+    <div class="butt">3</div>
+    <div class="butt">+</div>
+    <div class="butt">ln</div>
+    <div class="butt">5</div>
+    <div class="butt">0</div>
+    <div class="butt">.</div>
+    <div class="butt">=</div>
+    <div style="clear: both;"></div>
+   </div>
+
+
+    <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
+   <script>
+    // custom config for the MTW app 
+    const mtwAppConfig = {
+        border: true // app border in the MTW page                    
+    }
+
+    ///////////////////////////////////////////////////////
+    // implement this functions in order to use private API        
+    const sendPrivateApiRequest = async () => {
+        // your code here:
+        // sendRequestToParent({ cat: 'getAssets' })
+    }        
+
+    const acceptPrivateApiResponse = async (data) => {
+        // process received data here:
+        // console.log(data)
+    }
+
+    // use this in order to send on document load
+    document.addEventListener('DOMContentLoaded', () => {
+        // your code here:
+        //sendRequestToParent({ method: 'getAssets' })
+    })
+
+</script>
+<script src="https://morethanwallet.com/appstore/index.js"></script>
+</body>
+</html>
