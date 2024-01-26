@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Technology - Lab 1 Calculator</title>
+    <title>Web Technology - Lab 2 Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -77,36 +77,36 @@
         <button class="number" onclick="appendChar('.')">.</button>
         <button class="operatorEqual" onclick="calculate()">=</button>
     </div>
-</div>
+    
+   </div>
 
    <script src="myScripts.js"></script>
 
-    <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
-   <script>
-    // custom config for the MTW app 
-    const mtwAppConfig = {
-        border: true // app border in the MTW page                    
-    }
+        <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
+    <script>
+        // custom config for the MTW app 
+        const mtwAppConfig = {
+            border: true // app border in the MTW page                    
+        }
 
-    ///////////////////////////////////////////////////////
-    // implement this functions in order to use private API        
-    const sendPrivateApiRequest = async () => {
-        // your code here:
-        // sendRequestToParent({ cat: 'getAssets' })
-    }        
+        ///////////////////////////////////////////////////////
+        // implement this functions in order to use private API        
+        const sendPrivateApiRequest = async () => {
+            // your code here:
+            // sendRequestToParent({ cat: 'getAssets' })
+        }        
 
-    const acceptPrivateApiResponse = async (data) => {
-        // process received data here:
-        // console.log(data)
-    }
+        const acceptPrivateApiResponse = async (data) => {
+            // process received data here:
+            // console.log(data)
+        }
 
-    // use this in order to send on document load
-    document.addEventListener('DOMContentLoaded', () => {
-        // your code here:
-        //sendRequestToParent({ method: 'getAssets' })
-    })
-
-</script>
-<script src="https://morethanwallet.com/appstore/index.js"></script>
+        // use this in order to send on document load
+        document.addEventListener('DOMContentLoaded', () => {
+            // your code here:
+            //sendRequestToParent({ method: 'getAssets' })
+        })
+    </script>
+    <script src="https://morethanwallet.com/appstore/index.js"></script>
 </body>
 </html>
