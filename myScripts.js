@@ -101,7 +101,7 @@ function plusMinus() {
         updateDisplay(currentInput);
     }
 }
-
+//Add keyborad Event Listener to handle Input character.
 document.addEventListener('keydown', (event) => {
     const key = event.key;
     handleInputCharacter(key);
