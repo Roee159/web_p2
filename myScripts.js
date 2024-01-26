@@ -9,14 +9,27 @@ function appendChar(char) {
 
 function calculate() {
   try {
-      // Replace occurrences of log() with Math.log10
-      currentInput = currentInput.replace(/log(?!\d)/g, 'Math.log10');
-      const result = evaluateExpression(currentInput);
-      currentInput = result.toString();
-      updateDisplay(result);
-  } catch (error) {
-      handleError(error);
-  }
+    // Define replacement patterns for various functions/constants
+    const replacements = [
+        { pattern: /log(?!\d)/g, replacement: 'Math.log10' },
+        { pattern: /exp(?!\d)/g, replacement: 'Math.exp' },
+        { pattern: /abs(?!\d)/g, replacement: 'Math.abs' },
+        { pattern: /sqrt(?!\d)/g, replacement: 'Math.sqrt' },
+        { pattern: /e(?!\d)/g, replacement: 'Math.E' }
+    ];
+
+    // Apply replacements iteratively
+    for (const { pattern, replacement } of replacements) {
+        currentInput = currentInput.replace(pattern, replacement);
+    }
+
+    // Evaluate the expression and update display
+    const result = evaluateExpression(currentInput);
+    currentInput = result.toString();
+    updateDisplay(result);
+} catch (error) {
+    handleError(error);
+}
 }
 
 function evaluateExpression(expression) {
@@ -103,17 +116,25 @@ document.addEventListener('keydown', (event) => {
 });
 
 function handleInputCharacter(input) {
+  if (!isNaN(input) || input === '.' || ['+', '-', '*', '/'].includes(input)) {
+    // Input is a digit, append it
+    appendChar(input);
+  } else {
     switch (input) {
         case '=':
+        case 'Enter':
             calculate();
             break;
         case 'C':
+        case 'c':
             clearInput();
             break;
         default:
-            appendChar(input);
+            // Do nothing for non-digit and operators inputs
     }
+  }
 }
+
 function updateMemoryButtonState() {
   const memoryButtons = document.querySelectorAll('.operators[data-memory-button]');
   memoryButtons.forEach(button => {
