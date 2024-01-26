@@ -1,0 +1,84 @@
+h1{
+    font-size: 50px;
+    text-align: center;
+    color: rgb(17, 17, 223);
+    font-weight: bold;
+}
+html{
+    display: flex;
+    flex-flow: row nowrap;  
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+.calculator {
+    width: 450px;
+    padding: 20px;
+    display: grid;
+    grid-gap: 2px;
+    background-color: gainsboro;
+}
+.row {
+    grid-column: span 5;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 1px;
+}
+.row1 {
+    grid-column: span 5;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1px;
+}
+.number {
+    width: 100%;
+    margin: 1px;
+    background-color: white;
+    text-align: center;
+    padding: 8px 0;
+    font-weight: bold;
+    border-width: 1px;
+    cursor: pointer;
+}
+.number:hover {
+    background-color: rgb(5, 5, 141);
+    color: white;
+   }
+.operators {
+    width: 100%;
+    margin: 1px;
+    background-color: gainsboro;
+    text-align: center;
+    padding: 8px 0;
+    border-width: 1px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.operators:hover {
+    background-color: rgb(5, 5, 141);
+    color: white;
+}
+.operatorEqual{
+    width: 100%;
+    margin: 1px;
+    background-color: rgb(98, 167, 223);
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 0;
+    cursor: pointer;
+}
+.operatorEqual:hover {
+    background-color: rgb(5, 5, 141);
+    color: white;
+}
+.result {
+    grid-column: span 5;
+    direction: RTL;
+    width: 100%;
+    border-width: 0px;
+    height: 65px;
+    font-weight: bold;
+    font-size: 30px;
+}

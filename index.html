@@ -4,56 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Technology - Lab 1 Calculator</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-  </head>
-  <body>
-   <div style="text-align: center; font-size: 24px; color: blue;">Calculator</div>
-   <div class="container">
-    <div class = "monitor">0</div>
-    <div class="butt">MC</div>
-    <div class="butt">MR</div>
-    <div class="butt">M+</div>
-    <div class="butt">M-</div>
-    <div class="butt">MS</div>
-    <div class="butt">2</div>
-    <div class="butt">9</div>
-    <div class="butt">e</div>
-    <div class="butt">C</div>
-    <div class="butt">ac</div>
-    <div class="butt">x</div>
-    <div class="butt">1/x</div>
-    <div class="butt">|x|</div>
-    <div class="butt">exp</div>
-    <div class="butt">mod</div>
-    <div class="butt">+</div>
-    <div class="butt">(</div>
-    <div class="butt">)</div>
-    <div class="butt">n!</div>
-    <div class="butt">&#xf7;</div>
-    <div class="butt">x</div>
-    <div class="butt">7</div>
-    <div class="butt">8</div>
-    <div class="butt">9</div>
-    <div class="butt">X</div>
-    <div class="butt">10</div>
-    <div class="butt">4</div>
-    <div class="butt">5</div>
-    <div class="butt">6</div>
-    <div class="butt">-</div>
-    <div class="butt">log</div>
-    <div class="butt">1</div>
-    <div class="butt">2</div>
-    <div class="butt">3</div>
-    <div class="butt">+</div>
-    <div class="butt">ln</div>
-    <div class="butt">5</div>
-    <div class="butt">0</div>
-    <div class="butt">.</div>
-    <div class="butt">=</div>
-    <div style="clear: both;"></div>
-   </div>
+<body>
+   <h1> Calculator </h1>
+   <div class="calculator">
+    <input type="text" class="result" readonly>
+    <div class="row">
+        <button class="operators" onclick="clearMemory()" >MC</button>
+        <button class="operators" disabled onclick="recallMemory()">MR</button>
+        <button class="operators" onclick="addToMemory()" data-memory-button>M+</button>
+        <button class="operators" onclick="subtractFromMemory()" data-memory-button>M-</button>
+        <button class="operators" onclick="storeInMemory()" data-memory-button>MS</button>
+        <button class="operators" disabled>m<sup>-</sup></button>
+    </div>
 
+    <div class="row1">
+        <button class="operators" onclick="notImplemented()">2<sup>nd</sup></button>
+        <button class="operators" onclick="appendChar('pi')">&pi;</button>
+        <button class="operators" onclick="appendChar('e')">e</button>
+        <button class="operators" onclick="clearInput()">C</button>
+        <button class="operators" onclick="deleteLastChar()">&#9003;</button>
+        
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('**2')">x<sup>2</sup></button>
+        <button class="operators" onclick="appendChar('1/')">1/<sub>x</sub></button>
+        <button class="operators" onclick="appendChar('abs')">|x|</button>
+        <button class="operators" onclick="appendChar('exp')">exp</button>
+        <button class="operators" onclick="appendChar('mod')">mod</button>
+        
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('sqrt')">&sup2;&radic;x</button>
+        <button class="operators" onclick="appendChar('(')">&lpar;</button>
+        <button class="operators" onclick="appendChar(')')">&rpar;</button>
+        <button class="operators" onclick="appendChar('factorial')">n!</button>
+        <button class="operators" onclick="appendChar('/')">&divide;</button>
+        
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('**')">x<sup>y</sup></button>
+        <button class="number" onclick="appendChar('7')">7</button>
+        <button class="number" onclick="appendChar('8')">8</button>
+        <button class="number" onclick="appendChar('9')">9</button>
+        <button class="operators" onclick="appendChar('*')">X</button>
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('10**')">10<sup>x</sup></button>
+        <button class="number" onclick="appendChar('4')">4</button>
+        <button class="number" onclick="appendChar('5')">5</button>
+        <button class="number" onclick="appendChar('6')">6</button>
+        <button class="operators" onclick="appendChar('-')">-</button>
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('log')">log</button>
+        <button class="number" onclick="appendChar('1')">1</button>
+        <button class="number" onclick="appendChar('2')">2</button>
+        <button class="number" onclick="appendChar('3')">3</button>
+        <button class="operators" onclick="appendChar('+')">+</button>
+    </div>
+
+    <div class="row1">
+        <button class="operators" onclick="appendChar('ln')">ln</button>
+        <button class="number" onclick="plusMinus()">+/-</button>
+        <button class="number" onclick="appendChar('0')">0</button>
+        <button class="number" onclick="appendChar('.')">.</button>
+        <button class="operatorEqual" onclick="calculate()">=</button>
+    </div>
+</div>
+
+   <script src="myScripts.js"></script>
 
     <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
    <script>
