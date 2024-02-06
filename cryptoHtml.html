@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTC/USD Prices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div id="app" class="max-w-[1000px] mx-auto">
+      <h1 class="font-bold text-3xl text-center text-blue-600 my-4">
+        Cryptocurrency Data
+      </h1>
+    </div>
+    <script>
+     
+      const row = (k, v, i) => {
+        // complete tr string
+        return `<tr>
+            <td class="w-16 p-2 align-top border-b ${i===0 && ' border-t'} border-gray-200"><img class="h-full w-auto" src="${v['image']}" /></td>
+            /* implement all cells here */
+            </tr>`
+      }      
+
+      const createTable = (data) => {
+        // create table string and insert it into "app" div before end
+      }
+
+      const url = "https://api.mtw-testnet.com/assets/all"
+      fetch(url)
+        .then((response) => {
+          return response.json()
+        })
+        .then((v) => createTable(v))
+        .catch((err) => console.log(err))
+    </script>
+  </body>
+</html>

@@ -1,139 +1,128 @@
-let memory = 0;
-let currentInput = '';
-let isMemoryAdded = false; // Flag to check if memory is added
+// const rowHeader = (data) => {
+//   let header = Object.keys(data).map((d) => {
+//       if (d === "image") return;
+//       return `<td class=${d}>${d}</td>`
+//   }).join("")
+//   return `<tr>${header}</tr>`
+// }
 
-//Handle Char pressed or clicked to append on the calculator 'monitor' in the HTML page.
-function appendChar(char) {
-    currentInput += char;
-    updateDisplay(currentInput);
+// const row = (data, headers) => {
+// let row = headers.map((h) => {
+//   let value = data[h];
+//   if (h === "image") return;
+//   if (h === 'id' && data['image']) {
+//       value = `<img src="${data['image']}"/>${value} `;
+//   } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
+//       value = `<a href="${value}" target="_blank">${value}</a>`;
+//   }
+//   return `<td>${value}</td>`;
+// }).join("");
+// return `<tr>${row}</tr>`;
+// }
+
+// const createTable = (data) => {
+//   const headers = Object.keys(data[0])
+//   document.getElementById("app").innerHTML = `<table class="table table-bordered table-hover">
+//       ${data.map(d => row(d, headers)).join("")}
+//       </table>`
+//   console.log(data)
+// }
+
+// const url = "https://api.mtw-testnet.com/assets/all"
+// fetch(url)
+//   .then((response) => {
+//       return response.json()
+//   })
+//   .then((v) => createTable(Object.values(v)))
+//   .catch((err) => console.log(err))
+
+
+// let items = []
+
+// const add = ()=>{
+//     let newItem = document.getElementById('newItem').value
+//     if(items.indexOf(newItem)==-1 && items.indexOf(newItem)!=''){
+//          items.push(newItem)
+//          document.getElementById('newItem').value = ''
+//          createList()
+//          document.getElementById('newItem').focus()
+//     }    
+// }
+
+// const createList = ()=>{
+//     let div =  document.querySelector('https://api.mtw-testnet.com/assets/all')
+//     if(div.firstChild) div.removeChild(div.firstChild)
+
+//     let ul = document.createElement('ul')
+//     div.appendChild(ul)
+
+//     items.forEach(i=>{
+//         let li = document.createElement('li')
+//         li.innerText = i
+//         ul.appendChild(li)
+//     })   
+//     save() 
+// }
+ 
+// const save = ()=>{
+//     let s = JSON.stringify(items)
+//     localStorage.setItem('items', s)
+// }
+
+// const restore = ()=>{
+//     let s = localStorage.getItem('items')
+//     if(s!=undefined) {
+//         items = JSON.parse(s)
+//         createList()
+//     }
+// }
+
+// const clearItems = ()=>{    
+//     items = []
+//     let div =  document.querySelector('#content')
+//     if(div.firstChild) div.removeChild(div.firstChild)
+//     localStorage.removeItem('items')
+// }
+
+// restore()
+
+
+const url = "https://api.mtw-testnet.com/assets/all"
+
+const createList = ()=>{
+  let div =  document.querySelector('#content')
+  if(div.firstChild) div.removeChild(div.firstChild)
+
+  let ul = document.createElement('ul')
+  div.appendChild(ul)
+
+  items.forEach(i=>{
+      let li = document.createElement('li')
+      li.innerText = i
+      ul.appendChild(li)
+  })   
+  save() 
 }
-//Fully functionality to calculate current expression in monitor ready to Eval syntax use.
-function calculate() {
-  try {
-    // Define replacement patterns for various functions/constants
-    const replacements = [
-        { pattern: /log(?!\d)/g, replacement: 'Math.log10' },
-        { pattern: /exp(?!\d)/g, replacement: 'Math.exp' },
-        { pattern: /abs(?!\d)/g, replacement: 'Math.abs' },
-        { pattern: /sqrt(?!\d)/g, replacement: 'Math.sqrt' },
-        { pattern: /e(?!\d)/g, replacement: 'Math.E' }
-    ];
-    // Apply replacements iteratively
-    for (const { pattern, replacement } of replacements) {
-        currentInput = currentInput.replace(pattern, replacement);
-    }
-    // Evaluate the expression and update display
-    const result = evaluateExpression(currentInput);
-    currentInput = result.toString();
-    updateDisplay(result);
-  } catch (error) {
-      handleError(error);
+
+
+const save = ()=>{
+  let s = JSON.stringify(items)
+  localStorage.setItem('items', s)
+}
+
+const restore = ()=>{
+  let s = localStorage.getItem('items')
+  if(s!=undefined) {
+      items = JSON.parse(s)
+      createList()
   }
 }
-//Calculate expression using Eval function.
-function evaluateExpression(expression) {
-  return eval(expression);
+
+const clearItems = ()=>{    
+  items = []
+  let div =  document.querySelector('#content')
+  if(div.firstChild) div.removeChild(div.firstChild)
+  localStorage.removeItem('items')
 }
-//Update Calculator 'monitor' display in the HTML page.
-function updateDisplay(value) {
-    document.querySelector('.result').value = value;
-}
-//Clear Calculator Memory.
-function clearMemory() {
-  memory = 0;
-  isMemoryAdded = false;
-  updateMemoryButtonState();
-}
-//Re-Call Calculator Memory and update display in the HTML page.
-function recallMemory() {
-  if (isMemoryAdded) {
-      currentInput += memory;
-      updateDisplay(currentInput);
-  }
-}
-//Add to Calculator Memory from the calculator 'monitor' shown.
-function addToMemory() {
-  const mrButton = document.querySelectorAll('.row button')[1];
-  console.log(mrButton)
-  mrButton.disabled = false;
-  memory += evaluateExpression(currentInput);
-  clearInput();
-  isMemoryAdded = true;
-  updateMemoryButtonState();
-}
-//Remove from Calculator Memory.
-function subtractFromMemory() {
-  memory -= evaluateExpression(currentInput);
-  clearInput();
-  isMemoryAdded = true;
-  updateMemoryButtonState();
-}
-//Save Calculator Memory shown in the 'monitor.
-function storeInMemory() {
-  memory = evaluateExpression(currentInput);
-  clearInput();
-  isMemoryAdded = true;
-  updateMemoryButtonState();
-}
-//Clear calculator 'monitor' and update it to the HTML page.
-function clearInput() {
-    currentInput = '';
-    updateDisplay(0);
-}
-//Handle Error print.
-function handleError(error) {
-    console.error('Error:', error);
-    updateDisplay('Error');
-}
-//Handle Backspace button functionality to remove last char shown in the 'monitor' 
-function deleteLastChar() {
-    currentInput = currentInput.slice(0, -1);
-    updateDisplay(currentInput);
-}
-//Handle alert in case of unImplemented button functionality.
-function notImplemented() {
-    alert("Operator not implemented!");
-}
-//Handle +/- button functionality.
-function plusMinus() {
-    if (!isNaN(parseFloat(currentInput))) {
-        currentInput = (parseFloat(currentInput) * -1).toString();
-        updateDisplay(currentInput);
-    }
-}
-//Add keyborad Event Listener to handle Input character.
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
-    handleInputCharacter(key);
-});
-//Handle keyboard evet listener to append/calculate/clear monitor in the HTML page.
-function handleInputCharacter(input) {
-  if (!isNaN(input) || input === '.' || ['+', '-', '*', '/'].includes(input)) {
-    // Input is a digit, append it
-    appendChar(input);
-  } else {
-    switch (input) {
-        case '=':
-        case 'Enter':
-            calculate();
-            break;
-        case 'C':
-        case 'c':
-            clearInput();
-            break;
-        default:
-            // Do nothing for non-digit and operators inputs
-    }
-  }
-}
-//Handle the Memory buttons state according to the current memory to disabled: on/off.
-function updateMemoryButtonState() {
-  const memoryButtons = document.querySelectorAll('.operators[data-memory-button]');
-  memoryButtons.forEach(button => {
-      if (isMemoryAdded) {
-          button.disabled = true;
-      } else {
-          button.disabled = false;
-      }
-  });
-}
+
+restore()

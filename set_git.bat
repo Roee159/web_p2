@@ -8,5 +8,5 @@ git init
 git add .
 git commit -m "new task commit"
 git branch -M main
-git remote add origin https://github.com/Roee159/web_p1.git
+git remote add origin https://github.com/Roee159/web_p4.git
 git push -u origin main

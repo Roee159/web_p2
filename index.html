@@ -1,112 +1,105 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Technology - Lab 2 Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>BTC/USD Prices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-   <h1> Calculator </h1>
-   <div class="calculator">
-    <input type="text" class="result" readonly>
-    <div class="row">
-        <button class="operators" onclick="clearMemory()" >MCכ</button>
-        <button class="operators" disabled onclick="recallMemory()">MR</button>
-        <button class="operators" onclick="addToMemory()" data-memory-button>M+</button>
-        <button class="operators" onclick="subtractFromMemory()" data-memory-button>M-</button>
-        <button class="operators" onclick="storeInMemory()" data-memory-button>MS</button>
-        <button class="operators" disabled>m<sup>-</sup></button>
+    <div id="app" class="max-w-[1000px] mx-auto">
+        <h1 class="font-bold text-3xl text-center text-blue-600 my-4">BTC/USD Prices</h1>
     </div>
-
-    <div class="row1">
-        <button class="operators" onclick="notImplemented()">2<sup>nd</sup></button>
-        <button class="operators" onclick="appendChar('pi')">&pi;</button>
-        <button class="operators" onclick="appendChar('e')">e</button>
-        <button class="operators" onclick="clearInput()">C</button>
-        <button class="operators" onclick="deleteLastChar()">&#9003;</button>
-        
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('**2')">x<sup>2</sup></button>
-        <button class="operators" onclick="appendChar('1/')">1/<sub>x</sub></button>
-        <button class="operators" onclick="appendChar('abs')">|x|</button>
-        <button class="operators" onclick="appendChar('exp')">exp</button>
-        <button class="operators" onclick="appendChar('mod')">mod</button>
-        
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('sqrt')">&sup2;&radic;x</button>
-        <button class="operators" onclick="appendChar('(')">&lpar;</button>
-        <button class="operators" onclick="appendChar(')')">&rpar;</button>
-        <button class="operators" onclick="notImplemented()">n!</button>
-        <button class="operators" onclick="appendChar('/')">&divide;</button>
-        
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('**')">x<sup>y</sup></button>
-        <button class="number" onclick="appendChar('7')">7</button>
-        <button class="number" onclick="appendChar('8')">8</button>
-        <button class="number" onclick="appendChar('9')">9</button>
-        <button class="operators" onclick="appendChar('*')">X</button>
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('10**')">10<sup>x</sup></button>
-        <button class="number" onclick="appendChar('4')">4</button>
-        <button class="number" onclick="appendChar('5')">5</button>
-        <button class="number" onclick="appendChar('6')">6</button>
-        <button class="operators" onclick="appendChar('-')">&minus;</button>
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('log')">log</button>
-        <button class="number" onclick="appendChar('1')">1</button>
-        <button class="number" onclick="appendChar('2')">2</button>
-        <button class="number" onclick="appendChar('3')">3</button>
-        <button class="operators" onclick="appendChar('+')">&plus;</button>
-    </div>
-
-    <div class="row1">
-        <button class="operators" onclick="appendChar('ln')">ln</button>
-        <button class="number" onclick="plusMinus()">+/-</button>
-        <button class="number" onclick="appendChar('0')">0</button>
-        <button class="number" onclick="appendChar('.')">.</button>
-        <button class="operatorEqual" onclick="calculate()">=</button>
-    </div>
-    
-   </div>
-
-   <script src="myScripts.js"></script>
-
-        <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
     <script>
-        // custom config for the MTW app 
-        const mtwAppConfig = {
-            border: true // app border in the MTW page                    
+      const table = (content) => `<table class="table-auto w-full">${content}</table>`
+      const row = (data,j) => {        
+        let tr = data.map((d,i) => {
+          let clr = check(j,i)
+          return `<td class="py-1 px-2 border-b border-gray-300 text-[${clr}] ${j===0 && ' font-bold bg-blue-100'}">${d}</td>`
+        }).join("")
+        return `<tr>${tr}</tr>`
+      }
+
+      const check = (j,i) =>{
+        if(j<2 || i!==4)return 'black'        
+        return csvData[j][i]>csvData[j-1][i] ? 'green' : 'red'
+      }
+
+      // create empty array
+      const csvData = []
+      const csvToTable = (data) => {
+
+        // this will return each line as an individual String
+        const lines = data.split("\n")
+
+        // loop through the lines and return an array of individual
+        // Strings within the line that are separated by a comma
+
+        for (let i = 0; i < lines.length; i++) {
+          csvData[i] = lines[i].split(",")
         }
 
-        ///////////////////////////////////////////////////////
-        // implement this functions in order to use private API        
-        const sendPrivateApiRequest = async () => {
-            // your code here:
-            // sendRequestToParent({ cat: 'getAssets' })
-        }        
+        // check the data
+        console.log(csvData)
 
-        const acceptPrivateApiResponse = async (data) => {
-            // process received data here:
-            // console.log(data)
-        }
+        ///////////////////////////////////////////////////////////////
+        // here the csvData 2D array must be converted into html table
+        ///////////////////////////////////////////////////////////////
 
-        // use this in order to send on document load
-        document.addEventListener('DOMContentLoaded', () => {
-            // your code here:
-            //sendRequestToParent({ method: 'getAssets' })
+        let rows = csvData.map((r,j) => row(r,j)).join("")        
+        document.getElementById("app").insertAdjacentHTML("beforeend",table(rows))
+        //document.getElementById("app").innerHTML = table(rows) // alternative - for full innerHTML
+        
+      }
+
+      const url = "BTC-USD.csv"
+      fetch(url) 
+        .then((response) => {
+          console.log(response)
+          return response.text()
         })
+        .then((v) => csvToTable(v))
+        .catch((err) => console.log(err))
     </script>
-    <script src="https://morethanwallet.com/appstore/index.js"></script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html>
