@@ -30,22 +30,16 @@
             return `<td class="p-2 align-top border-b border-gray-200">${v[prop]}</td>`;
         }
       };
-      
-      // create table
+
+      // create table row form to match the data
       const createTable = (data) => {
         const rows = Object.entries(data)
           .map(([k, v], i) => row(k, v, i))
           .join("");
 
-        const rowHead = `<tr>${fields
-          .map(
-            (f) =>
-              `<th class="font-bold bg-gray-200">${f === "image" ? "" : f}</th>`
-          )
-          .join("")}</tr>`;
-
-        const table = `<table class="w-full">${rowHead}${rows}</table>`;
-        document.getElementById("app").insertAdjacentHTML("beforeend", table);
+      // create table and insert it to HTML page.
+      const table = `<table class="w-full">${rows}</table>`;
+      document.getElementById("app").insertAdjacentHTML("beforeend", table);
       };
       // Fetch data source from url.
       const url = "https://api.mtw-testnet.com/assets/all";
